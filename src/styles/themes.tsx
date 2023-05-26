@@ -70,6 +70,10 @@ const defaultTheme = {
     base900: "2.25rem",
     base1000: "3rem",
   },
+  images: {
+    check: "images/icon-check.svg",
+    delete: "images/icon-cross.svg",
+  },
 };
 
 const darkTheme = {
@@ -88,6 +92,14 @@ const darkTheme = {
       accent: "hsl(220, 98%, 61%)",
       hover: "hsl(236, 33%, 92%)",
     },
+  },
+  images: {
+    ...defaultTheme.images,
+    background: {
+      desktop: "images/bg-desktop-dark.jpg",
+      mobile: "images/bg-mobile-dark.jpg",
+    },
+    toggle: "images/icon-sun.svg",
   },
 };
 
@@ -108,6 +120,14 @@ const lightTheme = {
       hover: "hsl(235, 19%, 35%)",
     },
   },
+  images: {
+    ...defaultTheme.images,
+    background: {
+      desktop: "images/bg-desktop-light.jpg",
+      mobile: "images/bg-mobile-light.jpg",
+    },
+    toggle: "images/icon-moon.svg",
+  },
 };
 
 export const Themes = {
@@ -115,10 +135,12 @@ export const Themes = {
     ...defaultTheme,
     name: darkTheme.name,
     color: darkTheme.color,
+    images: darkTheme.images,
   },
   light: {
     ...defaultTheme,
     name: lightTheme.name,
     color: lightTheme.color,
+    images: lightTheme.images,
   },
 };
