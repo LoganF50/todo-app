@@ -1,8 +1,11 @@
 import styled, { ThemeProvider } from "styled-components";
 import { GlobalStyle } from "./styles/globalStyle";
 import { Themes } from "./styles/themes";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import { Header } from "./components/Header";
+import { Checkbox } from "./components/Checkbox";
+import { AddTodo } from "./components/AddTodo";
 
 const Wrapper = styled.div`
   display: flex;
@@ -31,13 +34,42 @@ const StyledApp = styled.div`
   }
 `;
 
+type Todo = {
+  id: string;
+  description: string;
+  isCompleted: boolean;
+};
+
+const exampleTodos: Todo[] = [
+  {
+    id: uuidv4(),
+    description: "Complete online JavaScript course",
+    isCompleted: true,
+  },
+  { id: uuidv4(), description: "Jog around the park 3x", isCompleted: false },
+  { id: uuidv4(), description: "10 minutes meditation", isCompleted: false },
+  { id: uuidv4(), description: "Read for 1 hour", isCompleted: false },
+  { id: uuidv4(), description: "Pick up groceries", isCompleted: false },
+  {
+    id: uuidv4(),
+    description: "Complete Todo App on Frontend Mentor",
+    isCompleted: false,
+  },
+];
+
 function App() {
   const [currentTheme, setCurrentTheme] = useState(Themes.dark);
+  const [todos, setTodos] = useState(exampleTodos);
+  const [newTodo, setNewTodo] = useState("");
 
   const toggleTheme = () => {
     currentTheme.name === "dark"
       ? setCurrentTheme(Themes.light)
       : setCurrentTheme(Themes.dark);
+  };
+
+  const handleNewTodoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNewTodo(e.target.value);
   };
 
   return (
@@ -49,6 +81,11 @@ function App() {
             <Header
               toggleTheme={toggleTheme}
               toggleImageSrc={currentTheme.images.toggle}
+            />
+            <AddTodo
+              onChange={handleNewTodoChange}
+              placeholder={"Create a new todo..."}
+              value={newTodo}
             />
           </StyledApp>
         </Wrapper>

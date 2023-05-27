@@ -3,6 +3,7 @@ import styled from "styled-components";
 const StyledHeader = styled.header`
   display: flex;
   justify-content: space-between;
+  align-items: center;
 
   h1 {
     color: ${({ theme }) => theme.color.text.header};
@@ -14,6 +15,10 @@ const StyledHeader = styled.header`
   button {
     background-color: transparent;
     border: none;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 
   img {

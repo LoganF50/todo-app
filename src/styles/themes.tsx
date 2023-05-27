@@ -107,7 +107,7 @@ const lightTheme = {
   name: "light",
   color: {
     ...defaultTheme.color,
-    gray: "hsl(234, 11%, 52%)",
+    gray: "hsl(233, 11%, 84%)",
     background: {
       app: "hsl(236, 33%, 92%)",
       primary: "hsl(0, 0%, 98%)",
