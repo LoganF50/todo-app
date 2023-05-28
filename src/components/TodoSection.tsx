@@ -6,6 +6,7 @@ const Wrapper = styled.div`
   border-radius: ${({ theme }) => theme.borderRadius.base200};
   margin: ${({ theme }) => `${theme.spacing.base500} 0`};
   overflow: hidden;
+  box-shadow: ${({ theme }) => theme.boxShadow.primary};
 `;
 
 type TodoSectionProps = {

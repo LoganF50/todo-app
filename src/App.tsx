@@ -1,11 +1,11 @@
 import styled, { ThemeProvider } from "styled-components";
 import { GlobalStyle } from "./styles/globalStyle";
 import { Themes } from "./styles/themes";
-import { ChangeEvent, MouseEvent, useState } from "react";
+import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { Header } from "./components/Header";
-import { Checkbox } from "./components/Checkbox";
 import { AddTodo } from "./components/AddTodo";
+import { FilterRow } from "./components/FilterRow";
 import { Todo } from "./components/Todo";
 import { TodoSection } from "./components/TodoSection";
 import { SummaryRow } from "./components/SummaryRow";
@@ -36,6 +36,19 @@ const StyledApp = styled.div`
   }
 `;
 
+const Info = styled.p`
+  color: ${({ theme }) => theme.color.text.secondary};
+  font-size: ${({ theme }) => theme.fontSize.base200};
+  padding-top: ${({ theme }) => theme.spacing.base900};
+  text-align: center;
+`;
+
+export enum TodoFilter {
+  All,
+  Active,
+  Completed,
+}
+
 type TodoItem = {
   id: string;
   description: string;
@@ -63,6 +76,7 @@ function App() {
   const [currentTheme, setCurrentTheme] = useState(Themes.dark);
   const [todos, setTodos] = useState(exampleTodos);
   const [newTodo, setNewTodo] = useState("");
+  const [currentFilter, setCurrentFilter] = useState(TodoFilter.All);
 
   const toggleTheme = () => {
     currentTheme.name === "dark"
@@ -70,7 +84,7 @@ function App() {
       : setCurrentTheme(Themes.dark);
   };
 
-  const getIncompletedTodoCount = () => {
+  const getIncompleteTodoCount = () => {
     let incompleteTodoCount = 0;
 
     todos.forEach((todo) => {
@@ -94,6 +108,15 @@ function App() {
 
   // TODO
   const clearCompletedTodos = (e: React.MouseEvent<HTMLButtonElement>) => {};
+
+  // TODO
+  const todoFilterAll = (e: React.MouseEvent<HTMLButtonElement>) => {};
+
+  // TODO
+  const todoFilterActive = (e: React.MouseEvent<HTMLButtonElement>) => {};
+
+  // TODO
+  const todoFilterCompleted = (e: React.MouseEvent<HTMLButtonElement>) => {};
 
   return (
     <>
@@ -125,9 +148,16 @@ function App() {
               })}
               <SummaryRow
                 onClick={clearCompletedTodos}
-                itemCount={getIncompletedTodoCount()}
+                itemCount={getIncompleteTodoCount()}
               />
             </TodoSection>
+            <FilterRow
+              onClickActive={todoFilterActive}
+              onClickAll={todoFilterAll}
+              onClickCompleted={todoFilterCompleted}
+              currentFilter={currentFilter}
+            />
+            <Info>Drag and drop to reorder list</Info>
           </StyledApp>
         </Wrapper>
       </ThemeProvider>

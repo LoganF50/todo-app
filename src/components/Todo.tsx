@@ -24,11 +24,14 @@ const Wrapper = styled.div`
   }
 `;
 
-const TodoText = styled.div`
+const TodoText = styled.div<TodoTextProps>`
   background-color: ${({ theme }) => theme.color.background.primary};
-  color: ${({ theme }) => theme.color.text.primary};
+  color: ${({ theme, isChecked }) =>
+    isChecked ? theme.color.text.secondary : theme.color.text.primary};
   font-size: ${({ theme }) => theme.fontSize.base100};
   flex: 1;
+
+  text-decoration: ${({ isChecked }) => (isChecked ? "line-through" : "")};
 `;
 
 type TodoProps = {
@@ -37,6 +40,10 @@ type TodoProps = {
   id: string;
   isChecked: boolean;
   text: string;
+};
+
+type TodoTextProps = {
+  isChecked: boolean;
 };
 
 export const Todo: React.FC<TodoProps> = ({
@@ -53,7 +60,7 @@ export const Todo: React.FC<TodoProps> = ({
         isChecked={isChecked}
         isDisabled={false}
       />
-      <TodoText>{text}</TodoText>
+      <TodoText isChecked={isChecked}>{text}</TodoText>
       <button onClick={onDelete}>
         <img src="images/icon-cross.svg" alt="delete" />
       </button>
