@@ -4,6 +4,8 @@ const StyledHeader = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: ${({ theme }) =>
+    `${theme.spacing.base1000} 0 ${theme.spacing.base800}`};
 
   h1 {
     color: ${({ theme }) => theme.color.text.header};

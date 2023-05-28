@@ -8,7 +8,7 @@ const Wrapper = styled.div`
   border-radius: ${({ theme }) => theme.borderRadius.base200};
   gap: ${({ theme }) => theme.spacing.base400};
   padding: ${({ theme }) =>
-    `${theme.spacing.base400} ${theme.spacing.base600}`};
+    `${theme.spacing.base500} ${theme.spacing.base600}`};
 `;
 
 const Input = styled.input.attrs({ type: "text" })`
@@ -19,6 +19,10 @@ const Input = styled.input.attrs({ type: "text" })`
   min-width: 0; /* inputs come with a min-width > 0 so need to set at 0 then set width to 100% so it'll shrink as expected */
   flex: 1;
   caret-color: ${({ theme }) => theme.color.text.accent};
+
+  &:focus {
+    outline: none;
+  }
 `;
 
 type AddTodoProps = {

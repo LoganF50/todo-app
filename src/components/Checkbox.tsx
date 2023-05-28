@@ -6,13 +6,15 @@ const Wrapper = styled.div<CheckBoxProps>`
   width: ${({ theme }) => theme.fontSize.base500};
   height: ${({ theme }) => theme.fontSize.base500};
   background: ${({ theme, isChecked }) =>
-    isChecked ? theme.color.checkbox.background : theme.color.gray};
+    isChecked ? theme.color.checkbox.background : theme.color.text.secondary};
   border-radius: ${({ theme }) => theme.borderRadius.circular};
 
   &:hover {
     background: ${({ theme, isDisabled }) =>
-      isDisabled ? theme.color.gray : theme.color.checkbox.background};
-    cursor: pointer;
+      isDisabled
+        ? theme.color.text.secondary
+        : theme.color.checkbox.background};
+    cursor: ${({ isDisabled }) => (isDisabled ? "default" : "pointer")};
   }
 
   label {
@@ -28,7 +30,7 @@ const Wrapper = styled.div<CheckBoxProps>`
     border-radius: ${({ theme }) => theme.borderRadius.circular};
 
     &:hover {
-      cursor: pointer;
+      cursor: ${({ isDisabled }) => (isDisabled ? "default" : "pointer")};
     }
   }
 `;
