@@ -78,16 +78,28 @@ function App() {
   const [newTodo, setNewTodo] = useState("");
   const [currentFilter, setCurrentFilter] = useState(TodoFilter.All);
 
-  const toggleTheme = () => {
-    currentTheme.name === "dark"
-      ? setCurrentTheme(Themes.light)
-      : setCurrentTheme(Themes.dark);
+  const getDisplayedTodos = () => {
+    let displayedTodos: TodoItem[];
+
+    switch (currentFilter) {
+      case TodoFilter.Active:
+        displayedTodos = todos.filter((todo) => !todo.isCompleted);
+        break;
+      case TodoFilter.Completed:
+        displayedTodos = todos.filter((todo) => todo.isCompleted);
+        break;
+      // all
+      default:
+        displayedTodos = todos;
+    }
+
+    return displayedTodos;
   };
 
   const getIncompleteTodoCount = () => {
     let incompleteTodoCount = 0;
 
-    todos.forEach((todo) => {
+    getDisplayedTodos().forEach((todo) => {
       if (!todo.isCompleted) {
         incompleteTodoCount++;
       }
@@ -96,27 +108,67 @@ function App() {
     return incompleteTodoCount;
   };
 
+  const handleAddTodo = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && newTodo.length > 0) {
+      e.preventDefault();
+      const createdTodo: TodoItem = {
+        id: uuidv4(),
+        description: newTodo,
+        isCompleted: false,
+      };
+
+      const newTodos = [...todos, createdTodo];
+
+      setNewTodo("");
+      setTodos(newTodos);
+    }
+  };
+
+  const clearCompletedTodos = () => {
+    const newTodos = todos.filter((todo) => !todo.isCompleted);
+
+    setTodos(newTodos);
+  };
+
+  const handleDeleteTodo = (id: string) => {
+    const newTodos = todos.filter((todo) => todo.id !== id);
+
+    setTodos(newTodos);
+  };
+
+  const handleTodoFilterAll = () => {
+    setCurrentFilter(TodoFilter.All);
+  };
+
+  const handleTodoFilterActive = () => {
+    setCurrentFilter(TodoFilter.Active);
+  };
+
+  const handleTodoFilterCompleted = () => {
+    setCurrentFilter(TodoFilter.Completed);
+  };
+
   const handleNewTodoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewTodo(e.target.value);
   };
 
-  // TODO
-  const todoCheckHandler = () => {};
+  const handleTodoCheckChange = (id: string) => {
+    const newTodos = todos.map((todo) => {
+      if (todo.id === id) {
+        return { ...todo, isCompleted: !todo.isCompleted };
+      } else {
+        return todo;
+      }
+    });
 
-  // TODO
-  const todoDeleteHandler = (e: React.MouseEvent<HTMLButtonElement>) => {};
+    setTodos(newTodos);
+  };
 
-  // TODO
-  const clearCompletedTodos = (e: React.MouseEvent<HTMLButtonElement>) => {};
-
-  // TODO
-  const todoFilterAll = (e: React.MouseEvent<HTMLButtonElement>) => {};
-
-  // TODO
-  const todoFilterActive = (e: React.MouseEvent<HTMLButtonElement>) => {};
-
-  // TODO
-  const todoFilterCompleted = (e: React.MouseEvent<HTMLButtonElement>) => {};
+  const toggleTheme = () => {
+    currentTheme.name === "dark"
+      ? setCurrentTheme(Themes.light)
+      : setCurrentTheme(Themes.dark);
+  };
 
   return (
     <>
@@ -129,18 +181,19 @@ function App() {
               toggleImageSrc={currentTheme.images.toggle}
             />
             <AddTodo
+              addTodo={handleAddTodo}
               onChange={handleNewTodoChange}
               placeholder={"Create a new todo..."}
               value={newTodo}
             />
             <TodoSection>
-              {todos.map((todo) => {
+              {getDisplayedTodos().map((todo) => {
                 return (
                   <Todo
                     key={todo.id}
                     id={todo.id}
-                    onComplete={todoCheckHandler}
-                    onDelete={todoDeleteHandler}
+                    onComplete={handleTodoCheckChange}
+                    onDelete={handleDeleteTodo}
                     isChecked={todo.isCompleted}
                     text={todo.description}
                   />
@@ -152,9 +205,9 @@ function App() {
               />
             </TodoSection>
             <FilterRow
-              onClickActive={todoFilterActive}
-              onClickAll={todoFilterAll}
-              onClickCompleted={todoFilterCompleted}
+              onClickActive={handleTodoFilterActive}
+              onClickAll={handleTodoFilterAll}
+              onClickCompleted={handleTodoFilterCompleted}
               currentFilter={currentFilter}
             />
             <Info>Drag and drop to reorder list</Info>

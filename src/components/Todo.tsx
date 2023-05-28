@@ -35,8 +35,8 @@ const TodoText = styled.div<TodoTextProps>`
 `;
 
 type TodoProps = {
-  onComplete: () => void;
-  onDelete: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  onComplete: (id: string) => void;
+  onDelete: (id: string) => void;
   id: string;
   isChecked: boolean;
   text: string;
@@ -56,12 +56,12 @@ export const Todo: React.FC<TodoProps> = ({
   return (
     <Wrapper id={id}>
       <Checkbox
-        onChange={onComplete}
+        onChange={() => onComplete(id)}
         isChecked={isChecked}
         isDisabled={false}
       />
       <TodoText isChecked={isChecked}>{text}</TodoText>
-      <button onClick={onDelete}>
+      <button onClick={() => onDelete(id)}>
         <img src="images/icon-cross.svg" alt="delete" />
       </button>
     </Wrapper>

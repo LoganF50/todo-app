@@ -26,12 +26,14 @@ const Input = styled.input.attrs({ type: "text" })`
 `;
 
 type AddTodoProps = {
+  addTodo: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder: string;
   value: string;
 };
 
 export const AddTodo: React.FC<AddTodoProps> = ({
+  addTodo,
   onChange,
   placeholder,
   value,
@@ -39,7 +41,12 @@ export const AddTodo: React.FC<AddTodoProps> = ({
   return (
     <Wrapper>
       <Checkbox onChange={() => ""} isChecked={false} isDisabled={true} />
-      <Input onChange={onChange} placeholder={placeholder} value={value} />
+      <Input
+        onChange={onChange}
+        onKeyUp={addTodo}
+        placeholder={placeholder}
+        value={value}
+      />
     </Wrapper>
   );
 };
