@@ -12,6 +12,8 @@ type TodoSectionProps = {
   children: React.ReactNode;
 };
 
-export const TodoSection = ({ children }: TodoSectionProps) => {
+export const TodoSection: React.FC<TodoSectionProps> = ({
+  children,
+}: TodoSectionProps) => {
   return <Wrapper>{children}</Wrapper>;
 };

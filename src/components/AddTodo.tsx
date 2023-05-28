@@ -31,7 +31,11 @@ type AddTodoProps = {
   value: string;
 };
 
-export const AddTodo = ({ onChange, placeholder, value }: AddTodoProps) => {
+export const AddTodo: React.FC<AddTodoProps> = ({
+  onChange,
+  placeholder,
+  value,
+}: AddTodoProps) => {
   return (
     <Wrapper>
       <Checkbox onChange={() => ""} isChecked={false} isDisabled={true} />

@@ -39,7 +39,7 @@ type TodoProps = {
   text: string;
 };
 
-export const Todo = ({
+export const Todo: React.FC<TodoProps> = ({
   onComplete,
   onDelete,
   id,

@@ -8,6 +8,7 @@ import { Checkbox } from "./components/Checkbox";
 import { AddTodo } from "./components/AddTodo";
 import { Todo } from "./components/Todo";
 import { TodoSection } from "./components/TodoSection";
+import { SummaryRow } from "./components/SummaryRow";
 
 const Wrapper = styled.div`
   display: flex;
@@ -69,6 +70,18 @@ function App() {
       : setCurrentTheme(Themes.dark);
   };
 
+  const getIncompletedTodoCount = () => {
+    let incompleteTodoCount = 0;
+
+    todos.forEach((todo) => {
+      if (!todo.isCompleted) {
+        incompleteTodoCount++;
+      }
+    });
+
+    return incompleteTodoCount;
+  };
+
   const handleNewTodoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewTodo(e.target.value);
   };
@@ -78,6 +91,9 @@ function App() {
 
   // TODO
   const todoDeleteHandler = (e: React.MouseEvent<HTMLButtonElement>) => {};
+
+  // TODO
+  const clearCompletedTodos = (e: React.MouseEvent<HTMLButtonElement>) => {};
 
   return (
     <>
@@ -107,6 +123,10 @@ function App() {
                   />
                 );
               })}
+              <SummaryRow
+                onClick={clearCompletedTodos}
+                itemCount={getIncompletedTodoCount()}
+              />
             </TodoSection>
           </StyledApp>
         </Wrapper>
