@@ -28,6 +28,13 @@ const StyledHeader = styled.header`
   }
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoint.tablet}) {
+    h1 {
+      font-size: ${({ theme }) => theme.fontSize.base800};
+    }
+
+    img {
+      height: ${({ theme }) => theme.fontSize.base600};
+    }
   }
 `;
 

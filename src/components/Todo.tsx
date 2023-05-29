@@ -11,12 +11,17 @@ const Wrapper = styled.div`
     `${theme.spacing.base500} ${theme.spacing.base600}`};
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoint.tablet}) {
+    gap: ${({ theme }) => theme.spacing.base600};
+    padding: ${({ theme }) =>
+      `${theme.spacing.base600} ${theme.spacing.base700}`};
+
     & button img {
       display: none;
     }
 
     &:hover button img {
       display: block;
+      height: ${({ theme }) => theme.fontSize.base300};
     }
   }
 
@@ -42,6 +47,12 @@ const TodoText = styled.div<TodoTextProps>`
   flex: 1;
 
   text-decoration: ${({ isChecked }) => (isChecked ? "line-through" : "")};
+
+  @media screen and (min-width: ${({ theme }) => theme.breakpoint.tablet}) {
+    font-size: ${({ theme }) => theme.fontSize.base400};
+    padding: ${({ theme }) =>
+      `${theme.spacing.base100} 0 ${theme.spacing.base100}`};
+  }
 `;
 
 type TodoProps = {

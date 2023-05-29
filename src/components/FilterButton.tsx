@@ -5,10 +5,15 @@ const Button = styled.button<StyleProps>`
   color: ${({ theme, isActive }) =>
     isActive ? theme.color.text.accent : theme.color.text.secondary};
   border: none;
+  font-weight: ${({ theme }) => theme.fontWeight.bold};
 
   &:hover {
     color: ${({ theme }) => theme.color.text.primary};
     cursor: pointer;
+  }
+
+  @media screen and (min-width: ${({ theme }) => theme.breakpoint.tablet}) {
+    font-size: ${({ theme }) => theme.fontSize.base200};
   }
 `;
 

@@ -9,6 +9,12 @@ const Wrapper = styled.div`
   gap: ${({ theme }) => theme.spacing.base400};
   padding: ${({ theme }) =>
     `${theme.spacing.base500} ${theme.spacing.base600}`};
+
+  @media screen and (min-width: ${({ theme }) => theme.breakpoint.tablet}) {
+    gap: ${({ theme }) => theme.spacing.base600};
+    padding: ${({ theme }) =>
+      `${theme.spacing.base600} ${theme.spacing.base700}`};
+  }
 `;
 
 const Input = styled.input.attrs({ type: "text" })`
@@ -22,6 +28,10 @@ const Input = styled.input.attrs({ type: "text" })`
 
   &:focus {
     outline: none;
+  }
+
+  @media screen and (min-width: ${({ theme }) => theme.breakpoint.tablet}) {
+    font-size: ${({ theme }) => theme.fontSize.base400};
   }
 `;
 

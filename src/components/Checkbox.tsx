@@ -33,6 +33,10 @@ const Wrapper = styled.div<CheckBoxProps>`
       cursor: ${({ isDisabled }) => (isDisabled ? "default" : "pointer")};
     }
   }
+
+  @media screen and (min-width: ${({ theme }) => theme.breakpoint.tablet}) {
+    transform: scale(120%);
+  }
 `;
 
 const Input = styled.input.attrs({ type: "checkbox" })`

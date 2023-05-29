@@ -8,21 +8,31 @@ const Wrapper = styled.div`
   padding: ${({ theme }) =>
     `${theme.spacing.base500} ${theme.spacing.base600}`};
 
-  button {
-    background-color: transparent;
-    color: ${({ theme }) => theme.color.text.secondary};
-    font-size: ${({ theme }) => theme.fontSize.base100};
-    border: none;
-
-    &:hover {
-      color: ${({ theme }) => theme.color.text.primary};
-      cursor: pointer;
-    }
-  }
-
   p {
     color: ${({ theme }) => theme.color.text.secondary};
     font-size: ${({ theme }) => theme.fontSize.base100};
+  }
+
+  @media screen and (min-width: ${({ theme }) => theme.breakpoint.tablet}) {
+    p {
+      font-size: ${({ theme }) => theme.fontSize.base200};
+    }
+  }
+`;
+
+const ClearButton = styled.button`
+  background-color: transparent;
+  color: ${({ theme }) => theme.color.text.secondary};
+  font-size: ${({ theme }) => theme.fontSize.base100};
+  border: none;
+
+  &:hover {
+    color: ${({ theme }) => theme.color.text.primary};
+    cursor: pointer;
+  }
+
+  @media screen and (min-width: ${({ theme }) => theme.breakpoint.tablet}) {
+    font-size: ${({ theme }) => theme.fontSize.base200};
   }
 `;
 
@@ -31,7 +41,7 @@ const FilterSection = styled.div`
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoint.tablet}) {
     display: flex;
-    gap: ${({ theme }) => theme.spacing.base300};
+    gap: ${({ theme }) => theme.spacing.base400};
   }
 `;
 
@@ -50,7 +60,7 @@ export const SummaryRow: React.FC<SummaryRowProps> = ({
     <Wrapper>
       <p>{`${itemCount} ${itemCount === 1 ? "item" : "items"} left`}</p>
       <FilterSection>{children}</FilterSection>
-      <button onClick={onClick}>Clear Completed</button>
+      <ClearButton onClick={onClick}>Clear Completed</ClearButton>
     </Wrapper>
   );
 };

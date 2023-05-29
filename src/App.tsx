@@ -1,7 +1,7 @@
 import styled, { ThemeProvider } from "styled-components";
 import { GlobalStyle } from "./styles/globalStyle";
 import { Themes } from "./styles/themes";
-import { MouseEvent, useState } from "react";
+import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { Header } from "./components/Header";
 import { AddTodo } from "./components/AddTodo";
@@ -24,7 +24,7 @@ const Wrapper = styled.div`
   @media screen and (min-width: ${({ theme }) => theme.breakpoint.tablet}) {
     background-image: ${({ theme }) =>
       `url(${theme.images.background.desktop})`};
-    background-size: 100% 250px;
+    background-size: 100% 300px;
   }
 `;
 
@@ -46,7 +46,7 @@ const Info = styled.p`
   text-align: center;
 `;
 
-export enum TodoFilter {
+enum TodoFilter {
   All,
   Active,
   Completed,
