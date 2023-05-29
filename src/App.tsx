@@ -13,12 +13,17 @@ import { SummaryRow } from "./components/SummaryRow";
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   min-height: 100vh;
   background-color: ${({ theme }) => theme.color.background.app};
   background-image: ${({ theme }) => `url(${theme.images.background.mobile})`};
+  background-size: 100% 200px;
   background-repeat: no-repeat;
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoint.tablet}) {
+    background-image: ${({ theme }) =>
+      `url(${theme.images.background.desktop})`};
+    background-size: 100% 250px;
   }
 `;
 
@@ -30,10 +35,7 @@ const StyledApp = styled.div`
   font-family: ${({ theme }) => theme.fontFamily.primary};
   font-weight: ${({ theme }) => theme.fontWeight.normal};
   padding: ${({ theme }) => `0 ${theme.spacing.base700}`};
-
-  @media screen and (min-width: ${({ theme }) => theme.breakpoint.tablet}) {
-    max-width: 1200px;
-  }
+  width: min(100%, 600px);
 `;
 
 const Info = styled.p`
