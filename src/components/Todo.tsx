@@ -10,6 +10,16 @@ const Wrapper = styled.div`
   padding: ${({ theme }) =>
     `${theme.spacing.base500} ${theme.spacing.base600}`};
 
+  @media screen and (min-width: ${({ theme }) => theme.breakpoint.tablet}) {
+    & button img {
+      display: none;
+    }
+
+    &:hover button img {
+      display: block;
+    }
+  }
+
   button {
     background-color: transparent;
     border: none;
