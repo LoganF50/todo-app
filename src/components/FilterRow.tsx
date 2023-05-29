@@ -11,6 +11,10 @@ const Wrapper = styled.div`
   box-shadow: ${({ theme }) => theme.boxShadow.primary};
   padding: ${({ theme }) =>
     `${theme.spacing.base500} ${theme.spacing.base600}`};
+
+  @media screen and (min-width: ${({ theme }) => theme.breakpoint.tablet}) {
+    display: none;
+  }
 `;
 
 const FilterButton = styled.button<FilterButtonProps>`
@@ -22,7 +26,7 @@ const FilterButton = styled.button<FilterButtonProps>`
   border: none;
 
   &:hover {
-    color: ${({ theme }) => theme.color.text.accent};
+    color: ${({ theme }) => theme.color.text.primary};
     cursor: pointer;
   }
 `;
