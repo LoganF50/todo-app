@@ -1,7 +1,7 @@
 import styled, { ThemeProvider } from "styled-components";
 import { GlobalStyle } from "./styles/globalStyle";
 import { Themes } from "./styles/themes";
-import { useState } from "react";
+import { MouseEvent, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { Header } from "./components/Header";
 import { AddTodo } from "./components/AddTodo";
@@ -9,6 +9,7 @@ import { FilterRow } from "./components/FilterRow";
 import { Todo } from "./components/Todo";
 import { TodoSection } from "./components/TodoSection";
 import { SummaryRow } from "./components/SummaryRow";
+import { FilterButton } from "./components/FilterButton";
 
 const Wrapper = styled.div`
   display: flex;
@@ -204,14 +205,41 @@ function App() {
               <SummaryRow
                 onClick={clearCompletedTodos}
                 itemCount={getIncompleteTodoCount()}
-              />
+              >
+                <FilterButton
+                  isActive={currentFilter === TodoFilter.All}
+                  onClick={handleTodoFilterAll}
+                  text={"All"}
+                />
+                <FilterButton
+                  isActive={currentFilter === TodoFilter.Active}
+                  onClick={handleTodoFilterActive}
+                  text={"Active"}
+                />
+                <FilterButton
+                  isActive={currentFilter === TodoFilter.Completed}
+                  onClick={handleTodoFilterCompleted}
+                  text={"Completed"}
+                />
+              </SummaryRow>
             </TodoSection>
-            <FilterRow
-              onClickActive={handleTodoFilterActive}
-              onClickAll={handleTodoFilterAll}
-              onClickCompleted={handleTodoFilterCompleted}
-              currentFilter={currentFilter}
-            />
+            <FilterRow>
+              <FilterButton
+                isActive={currentFilter === TodoFilter.All}
+                onClick={handleTodoFilterAll}
+                text={"All"}
+              />
+              <FilterButton
+                isActive={currentFilter === TodoFilter.Active}
+                onClick={handleTodoFilterActive}
+                text={"Active"}
+              />
+              <FilterButton
+                isActive={currentFilter === TodoFilter.Completed}
+                onClick={handleTodoFilterCompleted}
+                text={"Completed"}
+              />
+            </FilterRow>
             <Info>Drag and drop to reorder list</Info>
           </StyledApp>
         </Wrapper>
