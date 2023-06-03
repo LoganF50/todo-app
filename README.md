@@ -1,36 +1,77 @@
-# Template: Vite - React - TS (using styled-components and gh-pages)
+# Frontend Mentor - Todo app solution
 
-## Setup
+This is a solution to the [Todo app challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/todo-app-Su1_KokOW). Frontend Mentor challenges help you improve your coding skills by building realistic projects.
 
-### Misc
+## Table of contents
 
-- `App.tsx`
-  - update `Wrapper` and `StyledApp`
-    - need to add things such as `fontFamily`, `fontWeight`, `color`, etc.
-- `package.json`
-  - replace `template` in `name` with repo name
-- `index.html`
-  - favicon (should be all the same for FrontendMentor)
-  - google font import(s)
-  - title
+- [Overview](#overview)
+  - [The challenge](#the-challenge)
+  - [Screenshot](#screenshot)
+  - [Links](#links)
+- [My process](#my-process)
+  - [Built with](#built-with)
+  - [What I learned](#what-i-learned)
+  - [Continued development](#continued-development)
+  - [Useful resources](#useful-resources)
+- [Author](#author)
 
-### gh-pages (from [see comment section](https://dev.to/shashannkbawa/deploying-vite-app-to-github-pages-3ane))
+## Overview
 
-- `vite.config.js`
-  - replace `<repo>` in `base` with repo name
-- `package.json`
-  - replace `<repo>` in `homepage` with repo name
+### The challenge
 
-### Theme
+Users should be able to:
 
-- `themes.tsx`
-  - add fonts used to `fontFamily`
-  - remove unused font weights from `fontWeight`
-  - add/update themes
+- View the optimal layout for the app depending on their device's screen size
+- See hover states for all interactive elements on the page
+- Add new todos to the list
+- Mark todos as complete
+- Delete todos from the list
+- Filter by all/active/complete todos
+- Clear all completed todos
+- Toggle light and dark mode
+- **Bonus**: Drag and drop to reorder items on the list
 
-## Development
+### Screenshot
 
-## Deployment
+![](./public/screenshots/desktop-dark.png)
+![](./public/screenshots/desktop-light.png)
+![](./public/screenshots/mobile-dark.png)
+![](./public/screenshots/mobile-light.png)
 
-- make sure all steps from 'Setup' is complete for 'gh-pages'
-- run `npm run deploy` to update live site
+### Links
+
+- Solution URL: [FrontendMentor Solution URL]()
+- Live Site URL: [Github Pages URL](https://loganf50.github.io/todo-app/)
+
+## My process
+
+### Built with
+
+- CSS Grid
+- Flexbox
+- Mobile-first workflow
+- TypeScript
+- [React](https://reactjs.org/) - JS library
+- [Styled Components](https://styled-components.com/) - For styles
+
+### What I learned
+
+- drag and drop
+- using '!' to tell TypeScript object will not be undefined (don't know if this is good to use or not):
+
+```js
+const dropTodo = todos.find((todo) => todo.id === id)!;
+```
+
+### Continued development
+
+- drag and drop
+  - would like to refine this as it seems very picky about where to be when dropping a todo but as far as I can tell it works
+
+### Useful resources
+
+- [Drag and Drop](https://dev.to/colinmcd01/drag-drop-re-ordering-using-html-and-react-974) - This helped me as it was my first time using drag and drop.
+
+## Author
+
+- Frontend Mentor - [@LoganF50](https://www.frontendmentor.io/profile/LoganF50)
