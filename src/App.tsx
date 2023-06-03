@@ -56,6 +56,7 @@ type TodoItem = {
   id: string;
   description: string;
   isCompleted: boolean;
+  order: number;
 };
 
 const exampleTodos: TodoItem[] = [
@@ -63,15 +64,37 @@ const exampleTodos: TodoItem[] = [
     id: uuidv4(),
     description: "Complete online JavaScript course",
     isCompleted: true,
+    order: 0,
   },
-  { id: uuidv4(), description: "Jog around the park 3x", isCompleted: false },
-  { id: uuidv4(), description: "10 minutes meditation", isCompleted: false },
-  { id: uuidv4(), description: "Read for 1 hour", isCompleted: false },
-  { id: uuidv4(), description: "Pick up groceries", isCompleted: false },
+  {
+    id: uuidv4(),
+    description: "Jog around the park 3x",
+    isCompleted: false,
+    order: 1,
+  },
+  {
+    id: uuidv4(),
+    description: "10 minutes meditation",
+    isCompleted: false,
+    order: 2,
+  },
+  {
+    id: uuidv4(),
+    description: "Read for 1 hour",
+    isCompleted: false,
+    order: 3,
+  },
+  {
+    id: uuidv4(),
+    description: "Pick up groceries",
+    isCompleted: false,
+    order: 4,
+  },
   {
     id: uuidv4(),
     description: "Complete Todo App on Frontend Mentor",
     isCompleted: false,
+    order: 5,
   },
 ];
 
@@ -80,6 +103,13 @@ function App() {
   const [todos, setTodos] = useState(exampleTodos);
   const [newTodo, setNewTodo] = useState("");
   const [currentFilter, setCurrentFilter] = useState(TodoFilter.All);
+  const [dragId, setDragId] = useState("");
+
+  const clearCompletedTodos = () => {
+    const newTodos = todos.filter((todo) => !todo.isCompleted);
+
+    setTodos(newTodos);
+  };
 
   const getDisplayedTodos = () => {
     let displayedTodos: TodoItem[];
@@ -111,6 +141,10 @@ function App() {
     return incompleteTodoCount;
   };
 
+  const getOrderMax = () => {
+    return todos.reduce((a, b) => (a.order > b.order ? a : b)).order;
+  };
+
   const handleAddTodo = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && newTodo.length > 0) {
       e.preventDefault();
@@ -118,6 +152,7 @@ function App() {
         id: uuidv4(),
         description: newTodo,
         isCompleted: false,
+        order: getOrderMax() + 1,
       };
 
       const newTodos = [...todos, createdTodo];
@@ -127,14 +162,34 @@ function App() {
     }
   };
 
-  const clearCompletedTodos = () => {
-    const newTodos = todos.filter((todo) => !todo.isCompleted);
+  const handleDeleteTodo = (id: string) => {
+    const newTodos = todos.filter((todo) => todo.id !== id);
 
     setTodos(newTodos);
   };
 
-  const handleDeleteTodo = (id: string) => {
-    const newTodos = todos.filter((todo) => todo.id !== id);
+  const handleDrag = (id: string) => {
+    setDragId(id);
+  };
+
+  const handleDrop = (id: string) => {
+    //! indicates to TS todo will not be undefined
+    const dropTodo = todos.find((todo) => todo.id === id)!;
+
+    const dropTodoOrder = dropTodo.order;
+
+    const newTodos = todos.map((todo) => {
+      //change order for todos below where dragged todo was dropped
+      if (todo.order >= dropTodoOrder) {
+        todo.order++;
+      }
+
+      if (todo.id === dragId) {
+        todo.order = dropTodoOrder;
+      }
+
+      return todo;
+    });
 
     setTodos(newTodos);
   };
@@ -190,18 +245,22 @@ function App() {
               value={newTodo}
             />
             <TodoSection>
-              {getDisplayedTodos().map((todo) => {
-                return (
-                  <Todo
-                    key={todo.id}
-                    id={todo.id}
-                    onComplete={handleTodoCheckChange}
-                    onDelete={handleDeleteTodo}
-                    isChecked={todo.isCompleted}
-                    text={todo.description}
-                  />
-                );
-              })}
+              {getDisplayedTodos()
+                .sort((a, b) => a.order - b.order)
+                .map((todo) => {
+                  return (
+                    <Todo
+                      key={todo.id}
+                      id={todo.id}
+                      handleDrag={handleDrag}
+                      handleDrop={handleDrop}
+                      onComplete={handleTodoCheckChange}
+                      onDelete={handleDeleteTodo}
+                      isChecked={todo.isCompleted}
+                      text={todo.description}
+                    />
+                  );
+                })}
               <SummaryRow
                 onClick={clearCompletedTodos}
                 itemCount={getIncompleteTodoCount()}

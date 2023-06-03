@@ -56,6 +56,8 @@ const TodoText = styled.div<TodoTextProps>`
 `;
 
 type TodoProps = {
+  handleDrag: (id: string) => void;
+  handleDrop: (id: string) => void;
   onComplete: (id: string) => void;
   onDelete: (id: string) => void;
   id: string;
@@ -68,6 +70,8 @@ type TodoTextProps = {
 };
 
 export const Todo: React.FC<TodoProps> = ({
+  handleDrag,
+  handleDrop,
   onComplete,
   onDelete,
   id,
@@ -75,7 +79,13 @@ export const Todo: React.FC<TodoProps> = ({
   text,
 }: TodoProps) => {
   return (
-    <Wrapper id={id}>
+    <Wrapper
+      id={id}
+      draggable={true}
+      onDragOver={(e) => e.preventDefault()}
+      onDragStart={() => handleDrag(id)}
+      onDrop={() => handleDrop(id)}
+    >
       <Checkbox
         onChange={() => onComplete(id)}
         isChecked={isChecked}
